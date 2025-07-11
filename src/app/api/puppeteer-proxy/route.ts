@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import puppeteer, { Browser, Page } from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
+import chromium from '@sparticuz/chromium-min';
 
 // Global variables to keep browser and page in memory
 let browser: Browser | null = null;
@@ -54,7 +54,8 @@ export async function GET(request: NextRequest) {
     
     // Launch browser (only once) with serverless-compatible configuration
     if (!browser) {
-      const executablePath = await chromium.executablePath();
+      const REMOTE_PATH = process.env.CHROMIUM_REMOTE_EXEC_PATH;
+      const executablePath = await chromium.executablePath(REMOTE_PATH);
       console.log('Chrome executable path:', executablePath);
       
       browser = await puppeteer.launch({
