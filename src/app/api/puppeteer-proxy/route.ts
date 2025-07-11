@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
     
     // Launch browser (only once) with serverless-compatible configuration
     if (!browser) {
-      const REMOTE_PATH = process.env.CHROMIUM_REMOTE_EXEC_PATH;
+      const REMOTE_PATH = 'https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar'
       const executablePath = await chromium.executablePath(REMOTE_PATH);
       console.log('Chrome executable path:', executablePath);
       
