@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import puppeteer, { Browser, Page } from 'puppeteer-core';
-import chromium from '@sparticuz/chromium-min';
+import chromium from '@sparticuz/chromium';
 
 // Global variables to keep browser and page in memory
 let browser: Browser | null = null;
@@ -25,7 +25,6 @@ export async function GET(request: NextRequest) {
   
   try {
     const targetUrl = `https://chzzk.naver.com/chat${path ? `/${path}` : ''}`;
-    
     // If already initializing, wait
     if (isInitializing) {
       console.log('Waiting for initialization to complete...');
@@ -52,9 +51,9 @@ export async function GET(request: NextRequest) {
     isInitializing = true;
     console.log('Initializing browser and navigating to', targetUrl);
     
-    // Launch browser (only once) with serverless-compatible configuration
+    // Launch browser (only once) with full Chromium from remote path
     if (!browser) {
-      const REMOTE_PATH = 'https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar'
+      const REMOTE_PATH = 'https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar';
       const executablePath = await chromium.executablePath(REMOTE_PATH);
       console.log('Chrome executable path:', executablePath);
       
