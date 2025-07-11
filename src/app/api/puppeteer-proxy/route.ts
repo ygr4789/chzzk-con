@@ -6,6 +6,18 @@ let browser: Browser | null = null;
 let page: Page | null = null;
 let isInitializing = false;
 
+// Internal cleanup function (not exported)
+async function cleanup() {
+  if (page) {
+    await page.close();
+    page = null;
+  }
+  if (browser) {
+    await browser.close();
+    browser = null;
+  }
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const path = searchParams.get('path') || '';
@@ -98,21 +110,13 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     isInitializing = false;
     console.error('Puppeteer proxy error:', error);
+    
+    // Cleanup on error
+    await cleanup();
+    
     return NextResponse.json({ 
       error: 'Failed to render content',
       details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
-  }
-}
-
-// Cleanup function to close browser when needed
-export async function cleanup() {
-  if (page) {
-    await page.close();
-    page = null;
-  }
-  if (browser) {
-    await browser.close();
-    browser = null;
   }
 } 
