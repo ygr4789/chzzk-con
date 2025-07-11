@@ -54,9 +54,12 @@ export async function GET(request: NextRequest) {
     
     // Launch browser (only once) with serverless-compatible configuration
     if (!browser) {
+      const executablePath = await chromium.executablePath();
+      console.log('Chrome executable path:', executablePath);
+      
       browser = await puppeteer.launch({
         args: chromium.args,
-        executablePath: await chromium.executablePath(),
+        executablePath,
         headless: true,
       });
     }
