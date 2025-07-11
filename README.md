@@ -20,6 +20,26 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Puppeteer Setup
+
+This project uses Puppeteer for web scraping in a serverless environment. The setup includes:
+
+- `puppeteer-core` instead of `puppeteer` for smaller bundle size
+- `@sparticuz/chromium` for serverless-compatible Chrome binary
+- Automatic Chrome installation via postinstall script
+- Vercel configuration for proper function timeout and build settings
+
+### Local Development
+
+For local development, Chrome will be automatically installed when you run `npm install`.
+
+### Deployment
+
+The project is configured to work with Vercel's serverless environment. The `vercel.json` file includes:
+
+- Function timeout settings for the Puppeteer API route
+- Build environment variables to ensure Chrome is downloaded
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
