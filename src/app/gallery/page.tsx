@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import conList from '@/utils/con_list.json';
 
 export default function ImagesPage() {
@@ -15,11 +16,12 @@ export default function ImagesPage() {
           {Object.entries(conList.con_list).map(([text, imagePath]) => (
             <div key={text} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
               <div className="p-6">
-                <div className="w-48 h-48 mx-auto mb-4 bg-gray-100 rounded-lg border-2 border-gray-200 flex items-center justify-center overflow-hidden">
-                  <img 
+                <div className="w-48 h-48 mx-auto mb-4 bg-gray-100 rounded-lg border-2 border-gray-200 flex items-center justify-center overflow-hidden relative">
+                  <Image 
                     src={imagePath} 
                     alt={text}
-                    className="w-full h-full object-contain"
+                    fill
+                    className="object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';

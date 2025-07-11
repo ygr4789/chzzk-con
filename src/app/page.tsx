@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -73,12 +73,12 @@ export default function Home() {
           <p className="mb-4">
             View all available images that are automatically displayed when specific text appears in chat messages.
           </p>
-          <a 
+          <Link 
             href="/gallery" 
             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
           >
             View Image Gallery →
-          </a>
+          </Link>
         </div>
 
         <div className="shadow-lg rounded-lg p-8">
@@ -88,21 +88,21 @@ export default function Home() {
           <div className="space-y-3">
             <div>
               <p className="text-sm mb-1">Base chat:</p>
-              <a 
+              <Link 
                 href="/api/puppeteer-proxy" 
                 className="underline text-sm font-mono"
               >
                 /api/puppeteer-proxy
-              </a>
+              </Link>
             </div>
             <div>
               <p className="text-sm mb-1">Specific chat room:</p>
-              <a 
+              <Link 
                 href="/api/puppeteer-proxy?path=fb4a6e81576c0607de6779ae5ca812db" 
                 className="underline text-sm font-mono"
               >
                 /api/puppeteer-proxy?path=fb4a6e81576c0607de6779ae5ca812db
-              </a>
+              </Link>
             </div>
           </div>
         </div>
