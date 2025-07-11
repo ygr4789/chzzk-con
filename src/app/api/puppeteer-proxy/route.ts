@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import puppeteer, { Browser, Page } from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
+import puppeteer, { Browser, Page } from 'puppeteer';
 
 // Global variables to keep browser and page in memory
 let browser: Browser | null = null;
@@ -52,12 +51,21 @@ export async function GET(request: NextRequest) {
     isInitializing = true;
     console.log('Initializing browser and navigating to', targetUrl);
     
-    // Launch browser (only once) with serverless-compatible configuration
+    // Launch browser (only once) with serverless-optimized configuration
     if (!browser) {
       browser = await puppeteer.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath(),
         headless: true,
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-accelerated-2d-canvas',
+          '--no-first-run',
+          '--no-zygote',
+          '--disable-gpu',
+          '--single-process',
+          '--disable-extensions'
+        ]
       });
     }
     
